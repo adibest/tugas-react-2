@@ -1,27 +1,8 @@
 import React , {Component} from 'react';
 import {FlatList, StyleSheet, TouchableOpacity, ActivityIndicator} from 'react-native';
-import {Text, View, Container, Content} from 'native-base';
+import {Text, View, Container, Content, Button, Icon} from 'native-base';
 
 import Navbar from './Navbar';
-
-const articles = [
-  {
-    title: 'this is title 1',
-    excerpt: 'this is excerpt 1 this is excerpt 1'
-  },
-  {
-    title: 'this is title 2',
-    excerpt: 'this is excerpt 2 this is excerpt 2'
-  },
-  {
-    title: 'this is title 3',
-    excerpt: 'this is excerpt 3 this is excerpt 3'
-  },
-  {
-    title: 'this is title 4',
-    excerpt: 'this is excerpt 4 this is excerpt 4'
-  },
-];
 
 export default class Home extends Component{
 
@@ -51,6 +32,14 @@ export default class Home extends Component{
     this.props.navigation.navigate('Detail')
   }
 
+  keCat() {
+    this.props.navigation.navigate('Category')
+  }
+
+  keBook() {
+    this.props.navigation.navigate('Book')
+  }
+
   render() {
 
     if (this.state.loaded == false) {
@@ -69,28 +58,22 @@ export default class Home extends Component{
           nav={this.props.navigation}
         />
         <Content>
-          <FlatList 
-            data={articles}
-            keyExtractor={ (article, index) => index.toString() }
-            renderItem={ (article) => (
 
-              <TouchableOpacity 
-                style={s.button}
-                onPress={ () => this.keDetail() }
-              >
-                <View style={s.article}>
-                  <Text style={s.title}>{ article.item.title }</Text>
-                  <Text style={s.excerpt}>{ article.item.excerpt }</Text>
-                </View>
-                <View>
-                  {this.state.categories.map( (category) => (
-                    <Text>{category.name}</Text>
-                  ) )}
-                </View>
-              </TouchableOpacity>
+          <Button danger
+            title="keCat"
+            onPress={ () => this.keCat() }
+          >
+            <Icon name='bookmark' />
+            <Text>Go to category</Text>
+          </Button>
+          <Button info
+            title="keBook"
+            onPress={ () => this.keBook() }
+          >
+            <Icon name='book' />
+            <Text>Go to book</Text>
+          </Button>
 
-            ) }
-          />
         </Content>
       </Container>
     );

@@ -4,7 +4,6 @@ import {Text, View, Container, Content} from 'native-base';
 
 import Navbar from './Navbar';
 
-
 export default class Book extends Component{
 
   state = {
@@ -35,8 +34,6 @@ export default class Book extends Component{
       return(
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <ActivityIndicator size={50} color="#DB4437" style={{position: 'absolute'}}/>
-          <ActivityIndicator size={40} color="#4285F4" style={{position: 'absolute'}}/>
-          <ActivityIndicator size={30} color="#F4B400" style={{position: 'absolute'}}/>
           <ActivityIndicator size={20} color="#0F9D58" style={{position: 'absolute'}}/>
         </View>
       );
@@ -50,11 +47,10 @@ export default class Book extends Component{
           backButton={true}
         />
         <Content>
-          <Text style={s.title}>This is Book</Text>
-          <Text style={s.body}>Yhis is bpdu</Text>
+          <Text style={s.title}>List of Book</Text>
           <View>
             {this.state.books.map( (book) => (
-              <Text>{book.title}</Text>
+              <Text style={s.body}>{book.title}</Text>
             ) )}
           </View>
         </Content>
