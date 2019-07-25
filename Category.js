@@ -1,6 +1,6 @@
 import React , {Component} from 'react';
-import {StyleSheet, ActivityIndicator} from 'react-native';
-import {Text, View, Container, Content, TextInput, Button} from 'native-base';
+import {Text, View, StyleSheet, ActivityIndicator, TextInput, Button} from 'react-native';
+import {Container, Content} from 'native-base';
 import axios from 'axios';
 
 import Navbar from './Navbar';
@@ -14,7 +14,7 @@ export default class Category extends Component{
   }
 
   getData() {
-    axios.get('http://root1.localhost.run/category')
+    axios.get('http://root.localhost.run/category')
     .then( (responseJson) => {
 
       this.setState({
@@ -32,17 +32,22 @@ export default class Category extends Component{
       name: this.state.form
     }
 
-    axios.post('http://root1.localhost.run/category/create', dataKirim)
+    axios.post('http://root.localhost.run/category/create', dataKirim)
     .then( (response) => {
-      alert("input berhasil");
+      let hasil = JSON.stringify(response.data);
+      alert(hasil);
       this.getData();
+    })
+    .catch( (error) => {
+      let hasil = JSON.stringify(error);
+      alert(hasil);
     })
   }
 
   delData(id) {
     this.setState({loaded: false});
 
-    axios.delete(`http://root1.localhost.run/category/delete/${id}`)
+    axios.delete(`http://root.localhost.run/category/delete/${id}`)
     .then( () => {
       alert('data terhapus');
       this.getData();
@@ -73,6 +78,8 @@ export default class Category extends Component{
   render() {  
 
     return(
+
+      
       <Container>
         {this.loading()}
         <Navbar 
@@ -82,19 +89,21 @@ export default class Category extends Component{
         />
         <Content>
           <Text style={s.title}>List of Category</Text>
-          <View>
+          <View style={{flex: 1}}>
             {this.state.categories.map( (category) => (
-              <Text style={s.body}>{category.name}</Text>
+              <Text style={s.body}>
+              {category.name}
+              </Text>
             ) )}
+            <TextInput
+              style={s.ti}
+              onChangeText={ (text) => this.handleInput(text) }
+            />
+            <Button
+              title='kir data'
+              onPress={ () => this.sendData() }
+            />
           </View>
-          <TextInput
-            style={s.ti}
-            onChangeText={ (text) => this.handleInput(text) }
-          />
-          <Button
-            title='kir data'
-            onPress={ () => this.sendData() }
-          />
         </Content>
       </Container>
     );
@@ -115,6 +124,9 @@ const s = StyleSheet.create({
     textAlign: 'center'
   },
   ti: {
-    width: '90%', borderWidth: 1, borderColor: '#000'
+    width: '90%', 
+    borderWidth: 1, 
+    borderColor: '#000',
+    alignItems: 'center'
   }
 })

@@ -12,7 +12,7 @@ export default class Home extends Component{
   }
 
   getData() {
-    fetch('http://root1.localhost.run/category')
+    fetch('http://root.localhost.run/category')
     .then( (response) => response.json() )
     .then( (responseJson) => {
 

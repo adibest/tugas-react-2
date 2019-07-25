@@ -12,7 +12,7 @@ export default class Book extends Component{
   }
 
   getData() {
-    fetch('http://root1.localhost.run/book')
+    fetch('http://root.localhost.run/book')
     .then( (response) => response.json() )
     .then( (responseJson) => {
 
